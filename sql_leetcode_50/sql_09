@@ -1,0 +1,37 @@
+# Question - 09
+
+Question link :
+        https://leetcode.com/problems/rising-temperature/?envType=study-plan-v2&envId=top-sql-50
+
+
+197. Rising Temperature
+Write a solution to find all dates' id with higher temperatures compared to its previous dates (yesterday).
+
+Input:
+Weather table:
++----+------------+-------------+
+| id | recordDate | temperature |
++----+------------+-------------+
+| 1  | 2015-01-01 | 10          |
+| 2  | 2015-01-02 | 25          |
+| 3  | 2015-01-03 | 20          |
+| 4  | 2015-01-04 | 30          |
++----+------------+-------------+
+
+Output:
++----+
+| id |
++----+
+| 2  |  # In 2015-01-02, the temperature was higher than the previous day (10 -> 25).
+| 4  |  # In 2015-01-04, the temperature was higher than the previous day (20 -> 30).
++----+
+
+# solution
+
+# 1st way --> using subdate
+
+select today.id
+from weather today
+join weather yesterday
+on subdate(today.recordDate,1) = yesterday.recordDate
+and today.temperature > yesterday.temperature
