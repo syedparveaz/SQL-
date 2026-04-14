@@ -48,3 +48,17 @@ inner join activity a2
 on a1.machine_id = a2.machine_id and a1.process_id = a2.process_id        -- 2 joining conditions -> making in single line.
 and a1.activity_type = 'start' and a2.activity_type = 'end'               -- where condition
 group by machine_id
+
+
+
+# 2nd way (start and end as alias for activity self joins)
+
+
+select start.machine_id, round(avg(end.timestamp-start.timestamp),3 ) as processing_time
+from activity start join activity end
+on start.machine_id = end.machine_id and start.process_id = end.process_id
+where start.activity_type = 'start' and end.activity_type = 'end'
+group by machine_id
+
+
+
